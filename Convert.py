@@ -116,3 +116,28 @@ for line in lines1:
 if list is not None:
     my_df1 = pd.DataFrame(list)
     my_df1.to_csv('review.csv', index=False, header=False)
+    
+    
+    
+
+list = []
+lines2 = open("yelp_academic_dataset_user.json",encoding='utf-8').readlines()
+for line in lines2:
+    average_star = None
+    user = None
+    line_list = []
+    jline = json.loads(line)
+    for k, v in jline.items():
+        if k == "average_stars":
+            average_star = v
+        if k=="user_id":
+            user = v
+
+    if (average_star!= None) and (user != None):
+        line_list.append(user)
+        line_list.append(average_star)
+        list.append(line_list)
+
+
+my_df2 = pd.DataFrame(list)
+my_df2S.to_csv('user.csv', index=False, header=False)
