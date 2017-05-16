@@ -10,7 +10,6 @@ stop = set(stopwords.words('english'))
 
 rp = RegexReplacer() # Here the replaces is initialized.
 p = PorterStemmer()#Here the porter stemmer is initialized.
-ps = nltk.stem.porter.PorterStemmer(mode='NLTK_EXTENSIONS')
 
 business_id = []
 
@@ -31,7 +30,6 @@ def stemm(line):
                 element = ''
 
     return line1
-
 
 
 cuisines = ["American (Traditional)", "American (New)", "Latin American", "Italian", "Thai",
@@ -108,19 +106,20 @@ for line in lines1:
                     if i not in stop:
                         filtered_words += i
                         filtered_words += " "
-                text = p.stem(filtered_words)
+                text = stemm(filtered_words)
                 line_list.append(user)
                 line_list.append(b_id)
-                line_list.append(text)
+                line_list.append(filtered_words)
                 line_list.append(star)
+                print(line_list)
+                print("\n")
                 list.append(line_list)
 
 if list is not None:
     my_df1 = pd.DataFrame(list)
     my_df1.to_csv('review.csv', index=False, header=False)
-    
-    
-    
+
+
 
 list = []
 lines2 = open("yelp_academic_dataset_user.json",encoding='utf-8').readlines()
@@ -142,4 +141,4 @@ for line in lines2:
 
 
 my_df2 = pd.DataFrame(list)
-my_df2S.to_csv('user.csv', index=False, header=False)
+my_df2.to_csv('user.csv', index=False, header=False)
