@@ -81,11 +81,10 @@ my_df.to_csv('business.csv', index=False, header=False)
 list = []
 lines1 = open("yelp_academic_dataset_review.json",encoding='utf-8').readlines()
 for line in lines1:
-    global filtered_words
     b_id = None
     text = None
     star = None
-    filtered_words = ""
+    user = None
     line_list = []
     jline = json.loads(line)
     for k, v in jline.items():
@@ -95,23 +94,26 @@ for line in lines1:
             star = v
         if k=="business_id":
             b_id = v
+        if k=="user_id":
+            user = v
 
     if text != None:
-        if (star!= None) and (b_id != None):
+        if (star!= None) and (b_id != None) and (user != None):
             if b_id in business_id:
                 text = text.lower()
                 text = rp.replace(text)
                 text = re.sub("not ","not_",text)
+                filtered_words = ""
                 for i in text.split():
                     if i not in stop:
-                        i = ps.stem(i)
-                        filtered_words+=i
-                        filtered_words+=" "
+                        filtered_words += i
+                        filtered_words += " "
+                text = p.stem(filtered_words)
+                line_list.append(user)
                 line_list.append(b_id)
-                line_list.append(filtered_words)
+                line_list.append(text)
                 line_list.append(star)
                 list.append(line_list)
-                filtered_words=""
 
 if list is not None:
     my_df1 = pd.DataFrame(list)
