@@ -111,8 +111,6 @@ for line in lines1:
                 line_list.append(b_id)
                 line_list.append(text)
                 line_list.append(star)
-                print(line_list)
-                print("\n")
                 list.append(line_list)
 
 if list is not None:
