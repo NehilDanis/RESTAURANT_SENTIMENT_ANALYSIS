@@ -109,7 +109,7 @@ for line in lines1:
                 text = stemm(filtered_words)
                 line_list.append(user)
                 line_list.append(b_id)
-                line_list.append(filtered_words)
+                line_list.append(text)
                 line_list.append(star)
                 print(line_list)
                 print("\n")
